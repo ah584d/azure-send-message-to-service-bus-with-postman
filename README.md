@@ -1,29 +1,28 @@
- Post message to Service Bus Topic/Queue using Postman
+## Post message to Service Bus Topic/Queue using Postman
 
   
 The aim of this page is to allow users to post message to Service Bus queue/topics by using postman. This article is focused on service bus queue, but for topic, some slight changes will be necessary.
-
 
 This page contains two parts:
 
 *    explanation about Shared Access Signature authentication which is mandatory in order to post anything to queue.
 *    Practical guide to execute post request with postman.
 
-Shared Access Signatures (SAS)
-1 - Short background and definitions
+## Shared Access Signatures (SAS)
+#### Short background and definitions
 
-        Shared Access Signatures (SAS) are the primary security mechanism for Service Bus messaging.
-        You can configure rules at the namespace level, on Service Bus relays, queues, and topics. An authorization rule has a name, is associated with specific rights, and carries a pair of cryptographic keys.
-        A client MUST pass the token (the token is generated, base on the rule, see below how to generate it) to Service Bus to prove authorization for the requested operation.(in our case posting a message into a queue).
+Shared Access Signatures (SAS) are the primary security mechanism for Service Bus messaging.
+You can configure rules at the namespace level, on Service Bus relays, queues, and topics. An authorization rule has a name, is associated with specific rights, and carries a pair of cryptographic keys.
+A client MUST pass the token (the token is generated, base on the rule, see below how to generate it) to Service Bus to prove authorization for the requested operation.(in our case posting a message into a queue).
 
- 2 - Add a new rule (also known as Shared Access Policy)
+#### Add a new rule (also known as Shared Access Policy)
 
 Having given these short concepts, let's retrieve our rule for our queue. (This rule is message entity level, which mean it apply only for this specific queue).
 
 If you still have not defined a rule for your queue, add a new one.
 
 
-        localize the queue on which you want to add the access rule
+    localize the queue on which you want to add the access rule
 
 
 b. Add a new rule (also known as Shared Access Policy)
@@ -50,7 +49,7 @@ a. Get resource URI
 
 b. get rule name and primary/secondary key
 
- 4 - Generate a SAS token via JavaScript (NodeJS)
+ ## Generate a SAS token via JavaScript (NodeJS)
 
         The SAS token is a string that you generate on the client side, for example by using one of the Azure Storage client libraries.
         The SAS token is not tracked by Azure Storage in any way. You can create an unlimited number of SAS tokens on the client side.
@@ -65,9 +64,9 @@ b. get rule name and primary/secondary key
         // saKey: primary or secondary key (in our example this is 9wav********************* or +Haz********************)
         You can either use my online sas token generator available here, 100% secure!!
 
- 5 - Generating a SAS Token using the Azure Portal
+ ## Generating a SAS Token using the Azure Portal
 
-        To create a token via the Azure portal, first, navigate to the storage account you'd like to access under the Settings section then click Shared access signature. You can see an example of what this might look like below.
+To create a token via the Azure portal, first, navigate to the storage account you'd like to access under the Settings section then click Shared access signature. You can see an example of what this might look like below.
 
 
 Send message using Postman
@@ -90,5 +89,3 @@ References:
 
     Shared Access Signature: https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas#configuration-for-shared-access-signature-authentication
     SAS token: https://docs.microsoft.com/en-us/rest/api/eventhub/generate-sas-token
-
-
