@@ -28,6 +28,7 @@ If you still have not defined a rule for your queue, add a new one.
 ![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki2.jpg)
 
    c. Choose the desired goal of your rule
+   
 ![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki0.jpg)
 
 Good to know!
