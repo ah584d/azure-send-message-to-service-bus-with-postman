@@ -4,11 +4,11 @@
 The aim of this page is to allow users to post message to Service Bus queue/topics by using postman. This article is focused on service bus queue, but for topic, some slight changes will be necessary.
 
 This page contains two parts:
-
 *    explanation about Shared Access Signature authentication which is mandatory in order to post anything to queue.
 *    Practical guide to execute post request with postman.
 
-## Shared Access Signatures (SAS)
+### <span style="color:#1589F0;">Shared Access Signatures (SAS)</span>
+### Shared Access Signatures (SAS)
 #### Short background and definitions
 
 Shared Access Signatures (SAS) are the primary security mechanism for Service Bus messaging.
