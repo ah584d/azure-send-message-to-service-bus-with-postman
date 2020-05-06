@@ -51,8 +51,8 @@ b. get rule name and primary/secondary key
 
  ## Generate a SAS token via JavaScript (NodeJS)
 
-        The SAS token is a string that you generate on the client side, for example by using one of the Azure Storage client libraries.
-        The SAS token is not tracked by Azure Storage in any way. You can create an unlimited number of SAS tokens on the client side.
+The SAS token is a string that you generate on the client side, for example by using one of the Azure Storage client libraries.
+The SAS token is not tracked by Azure Storage in any way. You can create an unlimited number of SAS tokens on the client side.
 
 
         This section shows how to programmatically generate a SAS token
