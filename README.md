@@ -22,14 +22,14 @@ If you still have not defined a rule for your queue, add a new one.
 
 
    a. Localize the queue on which you want to add the access rule
-picture
+![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki1.jpg)
 
    b. Add a new rule (also known as Shared Access Policy)
+![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki2.jpg)
 
-picture
    c. Choose the desired goal of your rule
+![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki0.jpg)
 
-picture
 Good to know!
 
 * The policy at the namespace level applies to all entities inside the namespace, irrespective of their individual policy configuration.
@@ -44,10 +44,10 @@ Good to know!
 
 
 a. Get resource URI
+![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki4.jpg)
 
-picture
 b. get rule name and primary/secondary key
-picture
+![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki00.jpg)
 
 4. ### Generate a SAS token via JavaScript (NodeJS)
 
@@ -69,6 +69,7 @@ picture
 5. #### Generating a SAS Token using the Azure Portal
 
 * To create a token via the Azure portal, first, navigate to the storage account you'd like to access under the Settings section then click Shared access signature. You can see an example of what this might look like below.
+![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki6.jpg)
 
 
 ### Send message using Postman
@@ -84,7 +85,8 @@ picture
         d. Body: Set to 'raw' and add something similar to the following: <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">This is an example message.</string>
 
 2. #### In Postman, click 'Send'!
-        The response status will be '201 Created' if completed successfully
+        * The response status will be '201 Created' if completed successfully
+![](https://github.com/ah584d/azure-send-message-to-service-bus-with-postman/blob/master/pictures/wiki7.jpg)
 
 
 ### References:
