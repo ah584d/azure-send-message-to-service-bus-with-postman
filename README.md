@@ -7,53 +7,54 @@ This page contains two parts:
 *    explanation about Shared Access Signature authentication which is mandatory in order to post anything to queue.
 *    Practical guide to execute post request with postman.
 
-### <span style="color:#1589F0;">Shared Access Signatures (SAS)</span>
-### Shared Access Signatures (SAS)
-#### Short background and definitions
+### <span style="color:blue">Shared Access Signatures (SAS)</span>
+1. #### Short background and definitions
 
-Shared Access Signatures (SAS) are the primary security mechanism for Service Bus messaging.
-You can configure rules at the namespace level, on Service Bus relays, queues, and topics. An authorization rule has a name, is associated with specific rights, and carries a pair of cryptographic keys.
-A client MUST pass the token (the token is generated, base on the rule, see below how to generate it) to Service Bus to prove authorization for the requested operation.(in our case posting a message into a queue).
+* Shared Access Signatures (SAS) are the primary security mechanism for Service Bus messaging.
+* You can configure rules at the namespace level, on Service Bus relays, queues, and topics. An authorization rule has a name, is associated with specific rights, and carries a pair of cryptographic keys.
+* A client MUST pass the token (the token is generated, base on the rule, see below how to generate it) to Service Bus to prove authorization for the requested operation.(in our case posting a message into a queue).
 
-#### Add a new rule (also known as Shared Access Policy)
+2. #### Add a new rule (also known as Shared Access Policy)
 
 Having given these short concepts, let's retrieve our rule for our queue. (This rule is message entity level, which mean it apply only for this specific queue).
 
 If you still have not defined a rule for your queue, add a new one.
 
 
-    localize the queue on which you want to add the access rule
+   a. Localize the queue on which you want to add the access rule
+picture
 
+   b. Add a new rule (also known as Shared Access Policy)
 
-b. Add a new rule (also known as Shared Access Policy)
+picture
+   c. Choose the desired goal of your rule
 
-
-c. Choose the desired goal of your rule
-
-
+picture
 Good to know!
 
-        The policy at the namespace level applies to all entities inside the namespace, irrespective of their individual policy configuration.
+* The policy at the namespace level applies to all entities inside the namespace, irrespective of their individual policy configuration.
 
-        When you create a Service Bus namespace, a policy rule named RootManageSharedAccessKey is automatically created for the namespace. This policy has Manage permissions for the entire namespace. It's recommended that you treat this rule like an administrative root account and don't use it in your application
+* When you create a Service Bus namespace, a policy rule named RootManageSharedAccessKey is automatically created for the namespace. This policy has Manage permissions for the entire namespace. It's recommended that you treat this rule like an administrative root account and don't use it in your application
 
- 3 - Identify the necessary parameters to generate a new token
+3. #### Identify the necessary parameters to generate a new token
 
-        In order to compose a SAS token, we need to retrieve 3 parameters, Access Rules name , in our case 'default', the primary key, and the queue URI.
-        The Shared Access Signature token contains the name of the chosen authorization rule, the URI of the resource that shall be accessed, an expiry instant, and an HMAC-SHA256 cryptographic signature computed over these fields using either the primary or the secondary cryptographic key of the chosen authorization rule.
-        SharedAccessSignature Field which should be inserted later into our request header: SharedAccessSignature sig=<signature-string>&se=<expiry>&skn=<keyName>&sr=<URL-encoded-resourceURI>
+* In order to compose a SAS token, we need to retrieve 3 parameters, Access Rules name , in our case 'default', the primary key, and the queue URI.
+* The Shared Access Signature token contains the name of the chosen authorization rule, the URI of the resource that shall be accessed, an expiry instant, and an HMAC-SHA256 cryptographic signature computed over these fields using either the primary or the secondary cryptographic key of the chosen authorization rule.
+* SharedAccessSignature Field which should be inserted later into our request header: SharedAccessSignature sig=<signature-string>&se=<expiry>&skn=<keyName>&sr=<URL-encoded-resourceURI>
 
 
 a. Get resource URI
 
-
+picture
 b. get rule name and primary/secondary key
+picture
 
- ## Generate a SAS token via JavaScript (NodeJS)
+4. ### Generate a SAS token via JavaScript (NodeJS)
 
-The SAS token is a string that you generate on the client side, for example by using one of the Azure Storage client libraries.
-The SAS token is not tracked by Azure Storage in any way. You can create an unlimited number of SAS tokens on the client side.
+* The SAS token is a string that you generate on the client side, for example by using one of the Azure Storage client libraries.
+* The SAS token is not tracked by Azure Storage in any way. You can create an unlimited number of SAS tokens on the client side.
 
+```
 
         This section shows how to programmatically generate a SAS token
        
@@ -62,30 +63,31 @@ The SAS token is not tracked by Azure Storage in any way. You can create an unli
         // uri: queue URL (in our example this is 'https://my-service-bus.servicebus.windows.net/my-queue')
         // saName: rule name (in our example this is 'default')
         // saKey: primary or secondary key (in our example this is 9wav********************* or +Haz********************)
-        You can either use my online sas token generator available here, 100% secure!!
+```
+* You can either use my online sas token generator available here, 100% secure!!
 
- ## Generating a SAS Token using the Azure Portal
+5. #### Generating a SAS Token using the Azure Portal
 
-To create a token via the Azure portal, first, navigate to the storage account you'd like to access under the Settings section then click Shared access signature. You can see an example of what this might look like below.
-
-
-Send message using Postman
+* To create a token via the Azure portal, first, navigate to the storage account you'd like to access under the Settings section then click Shared access signature. You can see an example of what this might look like below.
 
 
-    Setup Postman
-        REST type: POST
-        URL: https://<service namespace>.servicebus.windows.net/<topic name or queue>/messages (Ex: https://myservicebus.servicebus.windows.net/my-topic/messages)
-        Headers:
-            Authorization: SharedAccessSignature sr=https%3a%2f%2f<service namespace>.servicebus.windows.net%2f<topic name or queue>&sig=<signature hash generated by code>&se=<expiry time>&skn=<signature key name>
+### Send message using Postman
+
+1. #### Setup Postman
+        a. REST type: POST
+        b. URL: https://<service namespace>.servicebus.windows.net/<topic name or queue>/messages (Ex: https://myservicebus.servicebus.windows.net/my-topic/messages)
+        c. Headers:
+            * Authorization: SharedAccessSignature sr=https%3a%2f%2f<service namespace>.servicebus.windows.net%2f<topic name or queue>&sig=<signature hash generated by code>&se=<expiry time>&skn=<signature key name>
             (Ex: SharedAccessSignature sr=https%3a%2f%2fmy-service-bus.servicebus.windows.net%2fmy-queue&sig=z4C.....3d&se=1570147127&skn=default)
-                Note: It is required that the URL is encoded
-            Content-Type: application/xml
-        Body: Set to 'raw' and add something similar to the following: <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">This is an example message.</string>
-    In Postman, click 'Send'!
+                * Note: It is required that the URL is encoded
+            * Content-Type: application/xml
+        d. Body: Set to 'raw' and add something similar to the following: <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">This is an example message.</string>
+
+2. #### In Postman, click 'Send'!
         The response status will be '201 Created' if completed successfully
 
 
-References:
+### References:
 
     Shared Access Signature: https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas#configuration-for-shared-access-signature-authentication
     SAS token: https://docs.microsoft.com/en-us/rest/api/eventhub/generate-sas-token
