@@ -89,5 +89,5 @@ picture
 
 ### References:
 
-    Shared Access Signature: https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas#configuration-for-shared-access-signature-authentication
-    SAS token: https://docs.microsoft.com/en-us/rest/api/eventhub/generate-sas-token
+  * Shared Access Signature: https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-sas#configuration-for-shared-access-signature-authentication
+  * SAS token: https://docs.microsoft.com/en-us/rest/api/eventhub/generate-sas-token
